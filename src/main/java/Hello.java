@@ -1,106 +1,100 @@
+// パッケージのimport
+import java.math.BigDecimal;
+import java.time.*;
+
 public class Hello {
     public static void main(String[] args) {
-        // var 変数名 = 値
-        var t = "test";
+//        標準API = クラスライブラリ
+       /*
+       *    日付時刻
+       */
+        var time = java.time.LocalDate.now();
+        System.out.println(time);   // 2022-10-10
+        var time1 = java.time.LocalTime.now();
+        System.out.println(time1);  // 15:04:39.835798700
+        var time2 = java.time.LocalDateTime.now();
+        System.out.println(time2);  // 2022-10-10T15:07:22.227698900
+
+        /*
+        *   java.time.LocalDate
+        *   java.time ... パッケージ名
+        *   LocalDate ... クラス名
+        */
+
+        var date = LocalDateTime.now();
+        System.out.println(date);
+
+        // 日付時刻の操作
+        var now = LocalDateTime.now();
+        var daysLater = now.plusDays(3);    // 3日後
+        System.out.println(now);
+        System.out.println(daysLater);
+        var daysBefore = now.minusDays(3);  // 3日前
+        System.out.println(daysBefore);
+        var nextWeek = now.plusWeeks(1);    // 1週間後
+        System.out.println(nextWeek);
+        var nextTime = now.plusHours(3);
+        System.out.println(nextTime);                   //  3時間後
+
+        // 指定した日付時刻
+        var java17Release = LocalDate.of(2021, 9,14);
+        System.out.println(java17Release);
+        var java17Time = LocalTime.of(14, 30);  // 引数を増やして秒やナノ秒まで指定することもできる
+        System.out.println(java17Time);
+        var java17DateTime = LocalDateTime.of(java17Release, java17Time);   // 日付と時刻を組み合わせてDateTime / 引数を5つ渡して生成することもできる。
+        System.out.println(java17DateTime);
+
+        // 日付時刻の整形
+        var t = "%tm月".formatted(now);
         System.out.println(t);
+        var ft = "%tH時%tM分".formatted(now, now);
+        System.out.println(ft);
+        var ftoday = "%tY年%<tm月%<td日".formatted(now);
+        System.out.println(ftoday);
 
+        // staticメソッドとインスタンスメソッド
         /*
-        *   変数を定義しておくことで
-        *   ・間違いを見つけてくれる
-        *   ・入力が楽になる
-        *   ・何を扱っているのかわかりやすくなる
-        *   ・具体的な値を覚えておく必要がなくなる
-        *   ・変更を一か所にまとめることができる
-        *   ・使う値の一覧を作ることができる
-        */
-
-//        t = 5;  // java: 不適合な型: intをjava.lang.Stringに変換できません:
-//        変数を最初に定義したときに暗黙的にstringとなっているため数値である「5」を代入することができない
-
-        var i = 123;
-        System.out.println(i * 3);
-        i = 5;  // 同じ型の再定義なので可能
-        System.out.println(i * 3);
-
-        /*
-        *   型の種類
-        *   int     整数
-        *   double  実数
-        *   boolean 論理値
-        *   char    文字
-        *   String  文字列
-        *
-        *   Stringのみ大文字始まりになっている
-        *   小文字で始まっているintやdoubleは基本型（プリミティブ型）という
-        *   Stringはクラスで参照型と呼ばれる
-        *
-        *   参照型はメソッドを持つが、基本型にはメソッドがない。
-        */
-
-//        変数の型を指定
-//        型 変数名 = 値
-        String u = "miyane";
-        System.out.println(u);
-
-//        型を指定する場合には初期値を割り当てる必要がない
-        int j;
-        j = 5;
-        System.out.println(j);
-
-//        char型
-        char ch = 48;
-//        char型は0から65535までの整数を扱う型だがそれぞれの数値に割り当てられた文字を表現するために使用される
-        System.out.println(ch); // "0"
-//        48は「0」という文字を表す
-
-        /*
-         * 数値の型変換
+         *  LocalDate.now, LocalDate.of ... staticメソッド*
+         *  クラス名を指定してからの呼び出し*
+         *  クラス名.メソッド名（引数）*
+         **
+         *  toUpperCase / plusDays など ... インスタンスメソッド*
+         *  値.メソッド名（引数）*
          */
 
-//    整数と実数での変換
-        int i1 = 234;
-        double d = i1;
-        System.out.println(d);  // 234.0
 
-        double d2 = 234.0;
-//        int i2 = d2; // java: 不適合な型: 精度が失われる可能性があるdoubleからintへの変換
-
-//        キャスト
-        int ij = (int)d2;   // (型) 値
-        System.out.println(ij);
-
-//        文字列→数値
-//        int a = "3";    //  java: 不適合な型: java.lang.Stringをintに変換できません:
-//        int a = (int)"3";   //  java: 不適合な型: java.lang.Stringをintに変換できません:
         /*
-        *   Javaでキャストによって値の変換ができるのは数値型の間だけで、他の型の値の変換にはキャストではなく「変換処理」を行う必要がある。
-        *
-        *   文字列 → int型
-        *   Integer.parseInt()
+        *   BigDecimal*
         */
-        int a = Integer.parseInt("3");
-        System.out.println(a);
-        /*
-        *   文字列 → double型
-        *   Double.parseDouble()
-        */
-        double dou = Double.parseDouble("12.3");
-        System.out.println(dou);
+        // 実数計算の誤差
+        var num = 579 * 0.05;
+        System.out.println(num);    // 28.950000000000003
+        // double型での実数は内部的にはコンピュータにとって効率的な2進数で扱われているので、10進数で表したものと比べると誤差が出ることがある。
 
-        // 数値を文字列に変換
-//        String s = 123;     // java: 不適合な型: intをjava.lang.Stringに変換できません:
-        String s = 123 + "";    // +演算子のどちらかの辺が文字列の時には文字列の連結が行われる
-        System.out.println(s);
-//        実行速度に厳しいプログラムを作る場合
-//        String.valueOfメソッドを使用
-        var ss = String.valueOf(123);
-        System.out.println(ss);
-//        カンマ区切り
-        var cs = "%,d".formatted(12345);
-        System.out.println(cs);
-//        カンマ区切り + 実行速度
-        var fast = java.text.NumberFormat.getInstance()
-                .format(12345);
-        System.out.println(fast);
+        var cnum = BigDecimal.valueOf(579).multiply(BigDecimal.valueOf(0.05));      // 長い
+        System.out.println(cnum);   // 28.95
+
+        var b579 = BigDecimal.valueOf(579);
+        var b005 = BigDecimal.valueOf(0.05);
+        System.out.println(b579.multiply(b005));    // 28.95
+
+        // newによるBigDecimalオブジェクトの生成
+        var pi = Math.PI;
+        System.out.println(pi);     // 3.141592653589793 小数点以下15桁まで
+        // 小数点以下18桁以上を扱いたいとき
+        var cpi = BigDecimal.valueOf(3.141592653589793238);
+        System.out.println(cpi);    // 3.141592653589793 15桁以上の精度は扱えない
+        // 文字列を渡すと
+        var correctPi = new BigDecimal("3.141592653589793238");
+        System.out.println(correctPi);  // 3.141592653589793238
+        /*
+        *   BigDecimalでは仕様上少なくとも10億桁程度の精度を扱える
+        */
+
+        // オブジェクト
+        /*
+        *   コンストラクタによって生成される、クラスの値のことをオブジェクトという。
+        *   intなどのプリミティブ型の値はオブジェクトではなく、それ以外の値は全てオブジェクトになる。
+        */
     }
 }

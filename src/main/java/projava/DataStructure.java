@@ -100,5 +100,47 @@ public class DataStructure {
         System.out.println(e1);         // Exam[name=kis, subject=math, score=80]
         var name = e1.name();
         System.out.println(name);   // kis
+
+        /*
+        *   Mapで辞書を作る
+        */
+        var jp = "apple";
+        var en = switch(jp){
+            case "apple" -> "りんご";
+            case "grape" -> "ぶどう";
+            default -> "見つからない";
+        };
+
+        // Map.of
+        var fruits = Map.of("apple", "りんご", "grape", "ぶどう");
+        System.out.println(fruits);             // {grape=ぶどう, apple=りんご}
+        var grape = fruits.get("grape");
+        System.out.println(grape);              // ぶどう
+        var banana = fruits.get("banana");
+        System.out.println(banana);             // null
+        banana = fruits.getOrDefault("banana", "見つからない");   // 値が見つからない場合には「見つからない」を返す
+        System.out.println(banana);             // 見つからない
+
+        // 変更可能なMap
+        // Map.ofで生成したMapも変更不能
+        // HashMap
+        var animals = new HashMap<String, String>();    // キーも値も文字列
+        System.out.println(animals);    // {}
+        // キーと値を格納
+        animals.put("dog", "いぬ");
+        animals.put("cat", "ねこ");
+        System.out.println(animals);    // {cat=ねこ, dog=いぬ}
+        var animal = animals.get("cat");
+        System.out.println(animal);     // ねこ
+        var none = animals.get("fox");
+        System.out.println(none);       // null
+        var result = animals.put("cat", "猫");
+        System.out.println(result);     // ねこ　→　直前に格納されていた値が出力される
+        System.out.println(animals);    // {cat=猫, dog=いぬ}
+
+        // イミュータブル（不変）なオブジェクト
+        /*
+        *   格納した値の変更ができないもの→イミュータブル
+        */
     }
 }

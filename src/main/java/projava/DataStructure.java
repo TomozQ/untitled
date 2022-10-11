@@ -90,6 +90,15 @@ public class DataStructure {
         *   レコードで違う種類の値を組み合わせる
         */
         // 違う種類の値をListでまとめて扱う
-
+//        String型の受験者名、科目名、int型の点数をListで
+        var exam = List.of("kis", "math", 80);
+        System.out.println(exam);
+        // レコード
+        record Exam (String name, String subject, int score) {}     // record レコード名(コンポーネントの型 コンポーネントの名前, ...)
+        // レコードのオブジェクトを作成
+        var e1 = new Exam("kis", "math", 80);
+        System.out.println(e1);         // Exam[name=kis, subject=math, score=80]
+        var name = e1.name();
+        System.out.println(name);   // kis
     }
 }

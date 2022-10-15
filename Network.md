@@ -39,3 +39,9 @@ TCP通信では`Socket`、`ServerSocket`クラスを使うが、UDP通信にはD
 <br>
 ※ HTTPはリクエストを送るとレスポンスが返ってくる、一往復のプロトコル。
 * HTTPは文字列で通信を行うプロトコル。
+
+## HTTPSで安全なWebアクセス
+TCP/IPの通信ではサーバーとクライアントの間に複数の中継点を経由する。（`ゲートウェイ`）
+* __SSL__ Secure Socket Layer ソケット接続の接続先が正しいことを証明し、通信を暗号化する仕組み
+* __TLS__ Transport Layer Security SSLを標準化したもの。
+※ 合わせて `SSL/TLS`と呼ばれることも合る。

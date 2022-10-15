@@ -1,5 +1,7 @@
 package projava;
 
+import javax.net.SocketFactory;
+import javax.net.ssl.SSLSocketFactory;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,8 +16,11 @@ public class WebClient {
             受け取った文字列の18行分を表示する
          */
         var domain = "example.com";
+        SocketFactory factory = SSLSocketFactory.getDefault();
         try(
-                var soc = new Socket(domain, 80);
+//                var soc = new Socket(domain, 80);
+                // SSL対応
+                Socket soc = factory.createSocket(domain, 443); // HTTPSではポート443が標準的に使われる
                 /*
                     ReaderとWriter
                     HTTPは文字列で通信を行うプロトコル。

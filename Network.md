@@ -31,3 +31,8 @@ var server = new ServerSocket(1600);
 <br>
 ファイルのように全体を間違いなく受け取る必要がある場合にはTCPが使われて、ライブ動画のように一部が欠けても問題ない代わりに早く通信したい場合にUDPが使われる。
 TCP通信では`Socket`、`ServerSocket`クラスを使うが、UDP通信にはDatagramSocketクラスを使う。
+
+## Webの裏側を見てみる
+### HTTP
+* __HTTP__ ... HyperText Transfer Protocol Web上で使われれる転送プロトコル。
+* __HTTPクライアント__ ... HTTPはTCPを使ったプロトコル。Socketを使って実装することができる。

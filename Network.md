@@ -36,3 +36,6 @@ TCP通信では`Socket`、`ServerSocket`クラスを使うが、UDP通信にはD
 ### HTTP
 * __HTTP__ ... HyperText Transfer Protocol Web上で使われれる転送プロトコル。
 * __HTTPクライアント__ ... HTTPはTCPを使ったプロトコル。Socketを使って実装することができる。
+<br>
+※ HTTPはリクエストを送るとレスポンスが返ってくる、一往復のプロトコル。
+* HTTPは文字列で通信を行うプロトコル。

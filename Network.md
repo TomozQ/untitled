@@ -45,3 +45,14 @@ TCP/IPの通信ではサーバーとクライアントの間に複数の中継�
 * __SSL__ Secure Socket Layer ソケット接続の接続先が正しいことを証明し、通信を暗号化する仕組み
 * __TLS__ Transport Layer Security SSLを標準化したもの。
 ※ 合わせて `SSL/TLS`と呼ばれることも合る。
+
+### URL
+```
+http://example.com:80/index
+
+・http ...           プロトコル
+・example.com ...    接続先
+・:80 ...            ポート
+・index ...          パス
+
+```

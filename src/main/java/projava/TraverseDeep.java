@@ -1,6 +1,8 @@
 package projava;
 
+import java.io.PipedOutputStream;
 import java.util.ArrayDeque;
+import java.util.Queue;
 
 public class TraverseDeep {
     /*
@@ -10,7 +12,7 @@ public class TraverseDeep {
         int[][] map = {
                 {1, 1, 1, 1, 1, 1, 1, },
                 {1, 0, 1, 0, 0, 0, 1, },
-                {1, 0, 0, 0, 1, 1, 1, },
+                {1, 0, 0, 0, 1, 0, 1, },
                 {1, 0, 1, 0, 0, 2, 1, },
                 {1, 1, 1, 1, 1, 1, 1, },
         };
@@ -56,10 +58,17 @@ public class TraverseDeep {
         // 引数で受け取った値をまとめてスタックに積む必要があるため、スタックに積むデータをまとめるためのレコードを用意する。
         record Position(int x, int y){} // mapは変更がないのでスタックに積む必要がないのでレコードに含まない
 
-        var stack = new ArrayDeque<Position>();     // スタックを使う場合に使用するクラス。両端キューとも呼ぶ。
-        stack.push(new Position(curX, curY));       // 最初のtraverse呼び出し時の引数をまとめてスタックに積む
+//        var stack = new ArrayDeque<Position>();     // スタックを使う場合に使用するクラス。両端キューとも呼ぶ。
+        // キュー用に変更　↓
+        Queue<Position> queue = new ArrayDeque<>();
+//        stack.push(new Position(curX, curY));       // 最初のtraverse呼び出し時の引数をまとめてスタックに積む
+        // キュー用に変更　↓
+        queue.offer(new Position(curX, curY));
 
-        for (Position p; (p = stack.pollFirst()) != null ;){        // スタックからpollFirstメソッドで値を取り出すとともに、nullでないときに処理を続けるよう判定 変数に割り当てつつ値を判定
+//        for (Position p; (p = stack.pollFirst()) != null ;){        // スタックからpollFirstメソッドで値を取り出すとともに、nullでないときに処理を続けるよう判定 変数に割り当てつつ値を判定
+        // スタック → キュー pollFirst → pollLast
+//        for (Position p; (p = stack.pollLast()) != null ;){           // 最後に追加した要素を取り出す
+        for (Position p; (p = queue.poll()) != null ;){
             switch (map[p.y()][p.x()]){
                 case 0: break;          // 通路なので続きの処理
                 case 2: return true;    // ゴールなので終了
@@ -72,10 +81,17 @@ public class TraverseDeep {
                 continue ... その外側のfor文の続きの処理を行う
              */
             map[p.y()][p.x()] = 3;
-            stack.push(new Position(p.x() + 1, p.y()));
-            stack.push(new Position(p.x() - 1, p.y()));
-            stack.push(new Position(p.x(), p.y() + 1));
-            stack.push(new Position(p.x(), p.y() - 1));
+//            stack.push(new Position(p.x() + 1, p.y()));
+//            stack.push(new Position(p.x() - 1, p.y()));
+//            stack.push(new Position(p.x(), p.y() + 1));
+//            stack.push(new Position(p.x(), p.y() - 1));
+
+            // キュー用に変更 ↓
+
+            queue.offer(new Position(p.x() + 1, p.y()));
+            queue.offer(new Position(p.x() - 1, p.y()));
+            queue.offer(new Position(p.x(), p.y() + 1));
+            queue.offer(new Position(p.x(), p.y() - 1));
         }
         return false;
     }

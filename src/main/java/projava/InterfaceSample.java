@@ -18,6 +18,24 @@ public class InterfaceSample {
      */
     interface Named {
         String name();
+        /*
+            実装を持ったメソッドをインターフェイスに定義する
+         */
+        default String greeting() {
+            return "こんにちは%sさん".formatted(name());
+        }
+        /*
+            デフォルトメソッド
+            オーバーライドすることができるが、実装を持ったメソッドはなるべくオーバーライドしないようにするほうが良い。
+            インターフェイスでは他にも、staticメソッドやprivateメソッドも実装を持って定義できる。
+         */
+
+        /*
+            インターフェイスにおけるアクセス制御
+            publicかprivateを指定することができる。
+            クラスの場合と違い、アクセス修飾子を省略するとpublicを指定したことになる。
+            インターフェイスにフィールドを定義すると必ずpublic static finalになる。
+         */
     }
 
     /*
@@ -25,6 +43,17 @@ public class InterfaceSample {
      */
     record Student(String name, int score) implements Named {}
     record Teacher(String name, String subject) implements Named {}
+
+    static class Passenger implements Named {   // クラス 'Passenger' は abstract 宣言されるか、'Named' の抽象メソッド 'name()' を実装する必要があります。
+        @Override   // このメソッドがインターフェイスのメソッドを実装することを表す。
+        /*
+            インターフェイスで定義されたメソッドを実装することをオーバーライドという。
+            @ で始まるのはアノテーションという構文だが、クラスやメソッドなどに何かの印をつける役割を持っている。なくてもかまわないがオーバーライドになっていないとき構文エラーとなってミスを見つけてくれる
+         */
+        public String name() {
+            return "通りすがり";
+        }
+    }
 
     public static void main(String[] args) {
         var people = List.of(new Student("kis", 80), new Teacher("hosoya", "Math"));
@@ -51,5 +80,15 @@ public class InterfaceSample {
             System.out.println("こんにちは%sさん".formatted(n));
         }
 
+        var people2 = List.of(
+                new Student("kis", 80),
+                new Teacher("hosoya", "Math"),
+                new Passenger()
+        );
+
+        for (Named p : people2) {
+            var n = p.name();
+            System.out.println("こんにちは%sさん".formatted(n));
+        }
     }
 }

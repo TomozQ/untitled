@@ -55,6 +55,29 @@ public class InterfaceSample {
         }
     }
 
+    /*
+        ラムダ式と関数型インターフェイス
+        関数型インターフェイス ... 実装すべきメソッドが1つだけのインターフェイス
+        ラムダ式は関数インターフェイスが必要なところに指定することができる
+     */
+
+    interface Named2 {
+        String name();  // 実装すべきメソッドが1つだけのインターフェイス
+    }
+
+    // 関数型インターフェイスを引数に受けるmessageメソッド
+    static void message(Named2 named2) {
+        System.out.println("Hello" + named2.name());
+    }
+
+    @FunctionalInterface    // メソッドが一つでなくてもアノテーションをつけることでインターフェイスが関数型インターフェイスであることを明示することもできる。
+    interface  Named3 {
+        String name();
+        default String greeting() {
+            return "こんにちは%sさん".formatted(name());
+        }
+    }
+
     public static void main(String[] args) {
         var people = List.of(new Student("kis", 80), new Teacher("hosoya", "Math"));
         for (var p : people) {
@@ -90,5 +113,7 @@ public class InterfaceSample {
             var n = p.name();
             System.out.println("こんにちは%sさん".formatted(n));
         }
+
+        message(() -> "no name");   // Hellono name
     }
 }

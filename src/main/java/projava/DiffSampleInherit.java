@@ -109,6 +109,10 @@ public class DiffSampleInherit {
 //    }
 
     static BufferedImage createImage(Consumer<Graphics2D> drawer) {
+        /*
+            Consumer ... 標準APIで用意されている関数型インターフェイスで、値を使った処理を行う。
+            インターフェイス名 Consumer<T>、引数あり、戻り値無し、メソッド -> void accept(T)
+         */
         var image = new BufferedImage(600, 400, BufferedImage.TYPE_INT_RGB);
         var graphics = image.createGraphics();
         drawer.accept(graphics);    // 受け取った関数型インターフェイスのメソッドを呼びだす。Consumerインターフェイスを使っているのでacceptメソッドになる
